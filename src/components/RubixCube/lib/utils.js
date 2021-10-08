@@ -2,8 +2,8 @@ import Cell from "../components/Cell";
 
 /**
  * Generates the initial Rubix cube data structure
- * @param {String} colour 
- * @returns 
+ * @param {String} colour
+ * @returns
  */
 export const generateCubeFace = (colour) => {
   return [
@@ -24,45 +24,57 @@ export const renderFaces = (cube) => {
   const bottomRow = [];
 
   topRow.push(
-    <div className="top-row-item">
-      <div key={2}>{setFace(cube[2])}</div>
+    <div key={2} className="top-row-item">
+      <div>{setFace(cube[2])}</div>
     </div>
   );
 
   midRow.push(
-    <div className="mid-row-item">
-      <div key={4}>{setFace(cube[4])}</div>
+    <div key={4} className="mid-row-item">
+      <div>{setFace(cube[4])}</div>
     </div>
   );
 
   midRow.push(
-    <div className="mid-row-item">
-      <div key={0}>{setFace(cube[0])}</div>
+    <div key={0} className="mid-row-item">
+      <div>{setFace(cube[0])}</div>
     </div>
   );
 
   midRow.push(
-    <div className="mid-row-item">
-      <div key={1}>{setFace(cube[1])}</div>
+    <div key={1} className="mid-row-item">
+      <div>{setFace(cube[1])}</div>
     </div>
   );
 
   midRow.push(
-    <div className="mid-row-item">
-      <div key={3}>{setFace(cube[3])}</div>
+    <div key={3} className="mid-row-item">
+      <div>{setFace(cube[3])}</div>
     </div>
   );
 
   bottomRow.push(
-    <div className="bottom-row-item">
-      <div key={5}>{setFace(cube[5])}</div>
+    <div key={5} className="bottom-row-item">
+      <div>{setFace(cube[5])}</div>
     </div>
   );
 
   const faces = [];
-  faces.push(<div className="top-row">{topRow}</div>);
-  faces.push(<div className="mid-row">{midRow}</div>);
-  faces.push(<div className="bottom-row">{bottomRow}</div>);
+  faces.push(
+    <div key={1} className="top-row">
+      {topRow}
+    </div>
+  );
+  faces.push(
+    <div key={2} className="mid-row">
+      {midRow}
+    </div>
+  );
+  faces.push(
+    <div key={3} className="bottom-row">
+      {bottomRow}
+    </div>
+  );
 
   return <div className="faces">{faces}</div>;
 };
@@ -82,34 +94,34 @@ export const setFace = (face) => {
   //Sets row 1 of the face
   for (let i = 0; i < 3; i++) {
     cells.push(
-      <td>
+      <td key={i}>
         <Cell colour={face[0][i].colour} />
       </td>
     );
   }
-  row1.push(<tr>{cells}</tr>); //Separate loops for ease of displaying in rows
+  row1.push(<tr key={1}>{cells}</tr>); //Separate loops for ease of displaying in rows
 
   cells = []; //Clear cells
   //Sets row 2 of the face
   for (let i = 0; i < 3; i++) {
     cells.push(
-      <td>
+      <td key={i}>
         <Cell colour={face[1][i].colour} />
       </td>
     );
   }
-  row2.push(<tr>{cells}</tr>); //Separate loops for ease of displaying in rows
+  row2.push(<tr key={2}>{cells}</tr>); //Separate loops for ease of displaying in rows
 
   cells = []; //Clear cells
   //Sets row 3 of the face
   for (let i = 0; i < 3; i++) {
     cells.push(
-      <td>
+      <td key={i}>
         <Cell colour={face[2][i].colour} />
       </td>
     );
   }
-  row3.push(<tr>{cells}</tr>); //Separate loops for ease of displaying in rows
+  row3.push(<tr key={3}>{cells}</tr>); //Separate loops for ease of displaying in rows
 
   rows.push(row1, row2, row3);
   const cubeFace = (

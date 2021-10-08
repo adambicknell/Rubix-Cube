@@ -26,7 +26,6 @@ const RubixCube = () => {
 
   //Update Rubix Cube faces when cube state changed
   useEffect(() => {
-    console.log(cube);
     if (cube.length) {
       setFaces(renderFaces(cube));
       return null;

@@ -1,4 +1,4 @@
-import { Faces, Clockwise, CounterClockwise } from "../lib/consts";
+import { Faces, Clockwise } from "../lib/consts";
 
 /**
  * Rotates the current face either clockwise
@@ -9,6 +9,7 @@ import { Faces, Clockwise, CounterClockwise } from "../lib/consts";
  * @returns
  */
 const rotateCurrentFace = (face, cube, direction) => {
+  // Probably a better way to do this that does not somewhat defeat DRY!
   const cell1 = cube[face][0][0];
   const cell2 = cube[face][0][1];
   const cell3 = cube[face][0][2];
@@ -52,51 +53,47 @@ const rotateFrontFace = (cube, direction) => {
   const leftFaceCell22 = cube[4][2][2];
 
   cube = rotateCurrentFace(0, cube, direction);
-  switch (direction) {
-    case Clockwise:
-      //Up Face
-      cube[2][2][0] = leftFaceCell02;
-      cube[2][2][1] = leftFaceCell12;
-      cube[2][2][2] = leftFaceCell22;
 
-      //Right Face
-      cube[1][0][0] = upFaceCell20;
-      cube[1][1][0] = upFaceCell21;
-      cube[1][2][0] = upFaceCell22;
+  if (direction === Clockwise) {
+    //Up Face
+    cube[2][2][0] = leftFaceCell02;
+    cube[2][2][1] = leftFaceCell12;
+    cube[2][2][2] = leftFaceCell22;
 
-      //Down Face
-      cube[5][0][0] = rightFaceCell00;
-      cube[5][0][1] = rightFaceCell10;
-      cube[5][0][2] = rightFaceCell20;
+    //Right Face
+    cube[1][0][0] = upFaceCell20;
+    cube[1][1][0] = upFaceCell21;
+    cube[1][2][0] = upFaceCell22;
 
-      //Left Face
-      cube[4][0][2] = downFaceCell00;
-      cube[4][1][2] = downFaceCell01;
-      cube[4][2][2] = downFaceCell02;
+    //Down Face
+    cube[5][0][0] = rightFaceCell00;
+    cube[5][0][1] = rightFaceCell10;
+    cube[5][0][2] = rightFaceCell20;
 
-      break;
-    case CounterClockwise:
-      //Up Face
-      cube[2][2][0] = rightFaceCell00;
-      cube[2][2][1] = rightFaceCell10;
-      cube[2][2][2] = rightFaceCell20;
+    //Left Face
+    cube[4][0][2] = downFaceCell00;
+    cube[4][1][2] = downFaceCell01;
+    cube[4][2][2] = downFaceCell02;
+  } else {
+    //Up Face
+    cube[2][2][0] = rightFaceCell00;
+    cube[2][2][1] = rightFaceCell10;
+    cube[2][2][2] = rightFaceCell20;
 
-      //Right Face
-      cube[1][0][0] = downFaceCell00;
-      cube[1][1][0] = downFaceCell01;
-      cube[1][2][0] = downFaceCell02;
+    //Right Face
+    cube[1][0][0] = downFaceCell00;
+    cube[1][1][0] = downFaceCell01;
+    cube[1][2][0] = downFaceCell02;
 
-      //Down Face
-      cube[5][0][0] = leftFaceCell02;
-      cube[5][0][1] = leftFaceCell12;
-      cube[5][0][2] = leftFaceCell22;
+    //Down Face
+    cube[5][0][0] = leftFaceCell02;
+    cube[5][0][1] = leftFaceCell12;
+    cube[5][0][2] = leftFaceCell22;
 
-      //Left Face
-      cube[4][0][2] = upFaceCell20;
-      cube[4][1][2] = upFaceCell21;
-      cube[4][2][2] = upFaceCell22;
-
-      break;
+    //Left Face
+    cube[4][0][2] = upFaceCell20;
+    cube[4][1][2] = upFaceCell21;
+    cube[4][2][2] = upFaceCell22;
   }
   return cube;
 };
@@ -125,51 +122,46 @@ const rotateRightFace = (cube, direction) => {
 
   cube = rotateCurrentFace(1, cube, direction);
 
-  switch (direction) {
-    case Clockwise:
-      //Up Face
-      cube[2][0][2] = frontFaceCell02;
-      cube[2][1][2] = frontFaceCell12;
-      cube[2][2][2] = frontFaceCell22;
+  if (direction === Clockwise) {
+    //Up Face
+    cube[2][0][2] = frontFaceCell02;
+    cube[2][1][2] = frontFaceCell12;
+    cube[2][2][2] = frontFaceCell22;
 
-      //Front Face
-      cube[0][0][2] = downFaceCell02;
-      cube[0][1][2] = downFaceCell12;
-      cube[0][2][2] = downFaceCell22;
+    //Front Face
+    cube[0][0][2] = downFaceCell02;
+    cube[0][1][2] = downFaceCell12;
+    cube[0][2][2] = downFaceCell22;
 
-      //Down Face
-      cube[5][2][2] = backFaceCell00;
-      cube[5][1][2] = backFaceCell10;
-      cube[5][0][2] = backFaceCell20;
+    //Down Face
+    cube[5][2][2] = backFaceCell00;
+    cube[5][1][2] = backFaceCell10;
+    cube[5][0][2] = backFaceCell20;
 
-      //Back Face
-      cube[3][2][0] = upFaceCell02;
-      cube[3][1][0] = upFaceCell12;
-      cube[3][0][0] = upFaceCell22;
+    //Back Face
+    cube[3][2][0] = upFaceCell02;
+    cube[3][1][0] = upFaceCell12;
+    cube[3][0][0] = upFaceCell22;
+  } else {
+    //Up Face
+    cube[2][2][2] = backFaceCell00;
+    cube[2][1][2] = backFaceCell10;
+    cube[2][0][2] = backFaceCell20;
 
-      break;
-    case CounterClockwise:
-      //Up Face
-      cube[2][2][2] = backFaceCell00;
-      cube[2][1][2] = backFaceCell10;
-      cube[2][0][2] = backFaceCell20;
+    //Front Face
+    cube[0][0][2] = upFaceCell02;
+    cube[0][1][2] = upFaceCell12;
+    cube[0][2][2] = upFaceCell22;
 
-      //Front Face
-      cube[0][0][2] = upFaceCell02;
-      cube[0][1][2] = upFaceCell12;
-      cube[0][2][2] = upFaceCell22;
+    //Down Face
+    cube[5][0][2] = frontFaceCell02;
+    cube[5][1][2] = frontFaceCell12;
+    cube[5][2][2] = frontFaceCell22;
 
-      //Down Face
-      cube[5][0][2] = frontFaceCell02;
-      cube[5][1][2] = frontFaceCell12;
-      cube[5][2][2] = frontFaceCell22;
-
-      //Back Face
-      cube[3][2][0] = downFaceCell02;
-      cube[3][1][0] = downFaceCell12;
-      cube[3][0][0] = downFaceCell22;
-
-      break;
+    //Back Face
+    cube[3][2][0] = downFaceCell02;
+    cube[3][1][0] = downFaceCell12;
+    cube[3][0][0] = downFaceCell22;
   }
 
   return cube;
@@ -198,51 +190,47 @@ const rotateUpFace = (cube, direction) => {
   const backFaceCell02 = cube[3][0][2];
 
   cube = rotateCurrentFace(2, cube, direction);
-  switch (direction) {
-    case Clockwise:
-      //Right Face
-      cube[1][0][0] = backFaceCell00;
-      cube[1][0][1] = backFaceCell01;
-      cube[1][0][2] = backFaceCell02;
 
-      //Front Face
-      cube[0][0][0] = rightFaceCell00;
-      cube[0][0][1] = rightFaceCell01;
-      cube[0][0][2] = rightFaceCell02;
+  if (direction === Clockwise) {
+    //Right Face
+    cube[1][0][0] = backFaceCell00;
+    cube[1][0][1] = backFaceCell01;
+    cube[1][0][2] = backFaceCell02;
 
-      //Left Face
-      cube[4][0][0] = frontFaceCell00;
-      cube[4][0][1] = frontFaceCell01;
-      cube[4][0][2] = frontFaceCell02;
+    //Front Face
+    cube[0][0][0] = rightFaceCell00;
+    cube[0][0][1] = rightFaceCell01;
+    cube[0][0][2] = rightFaceCell02;
 
-      //Back Face
-      cube[3][0][0] = leftFaceCell00;
-      cube[3][0][1] = leftFaceCell01;
-      cube[3][0][2] = leftFaceCell02;
+    //Left Face
+    cube[4][0][0] = frontFaceCell00;
+    cube[4][0][1] = frontFaceCell01;
+    cube[4][0][2] = frontFaceCell02;
 
-      break;
-    case CounterClockwise:
-      //Right Face
-      cube[1][0][0] = frontFaceCell00;
-      cube[1][0][1] = frontFaceCell01;
-      cube[1][0][2] = frontFaceCell02;
+    //Back Face
+    cube[3][0][0] = leftFaceCell00;
+    cube[3][0][1] = leftFaceCell01;
+    cube[3][0][2] = leftFaceCell02;
+  } else {
+    //Right Face
+    cube[1][0][0] = frontFaceCell00;
+    cube[1][0][1] = frontFaceCell01;
+    cube[1][0][2] = frontFaceCell02;
 
-      //Front Face
-      cube[0][0][0] = leftFaceCell00;
-      cube[0][0][1] = leftFaceCell01;
-      cube[0][0][2] = leftFaceCell02;
+    //Front Face
+    cube[0][0][0] = leftFaceCell00;
+    cube[0][0][1] = leftFaceCell01;
+    cube[0][0][2] = leftFaceCell02;
 
-      //Left Face
-      cube[4][0][0] = backFaceCell00;
-      cube[4][0][1] = backFaceCell01;
-      cube[4][0][2] = backFaceCell02;
+    //Left Face
+    cube[4][0][0] = backFaceCell00;
+    cube[4][0][1] = backFaceCell01;
+    cube[4][0][2] = backFaceCell02;
 
-      //Back Face
-      cube[3][0][0] = rightFaceCell00;
-      cube[3][0][1] = rightFaceCell01;
-      cube[3][0][2] = rightFaceCell02;
-
-      break;
+    //Back Face
+    cube[3][0][0] = rightFaceCell00;
+    cube[3][0][1] = rightFaceCell01;
+    cube[3][0][2] = rightFaceCell02;
   }
   return cube;
 };
@@ -270,50 +258,47 @@ const rotateBackFace = (cube, direction) => {
   const downFaceCell22 = cube[5][2][2];
 
   cube = rotateCurrentFace(3, cube, direction);
-  switch (direction) {
-    case Clockwise:
-      //Right Face
-      cube[1][2][2] = downFaceCell20;
-      cube[1][1][2] = downFaceCell21;
-      cube[1][0][2] = downFaceCell22;
 
-      //Up Face
-      cube[2][0][0] = rightFaceCell02;
-      cube[2][0][1] = rightFaceCell12;
-      cube[2][0][2] = rightFaceCell22;
+  if (direction === Clockwise) {
+    //Right Face
+    cube[1][2][2] = downFaceCell20;
+    cube[1][1][2] = downFaceCell21;
+    cube[1][0][2] = downFaceCell22;
 
-      //Left Face
-      cube[4][2][0] = upFaceCell00;
-      cube[4][1][0] = upFaceCell01;
-      cube[4][0][0] = upFaceCell02;
+    //Up Face
+    cube[2][0][0] = rightFaceCell02;
+    cube[2][0][1] = rightFaceCell12;
+    cube[2][0][2] = rightFaceCell22;
 
-      //Down Face
-      cube[5][2][0] = leftFaceCell00;
-      cube[5][2][1] = leftFaceCell10;
-      cube[5][2][2] = leftFaceCell20;
+    //Left Face
+    cube[4][2][0] = upFaceCell00;
+    cube[4][1][0] = upFaceCell01;
+    cube[4][0][0] = upFaceCell02;
 
-      break;
-    case CounterClockwise:
-      //Right Face
-      cube[1][0][2] = upFaceCell00;
-      cube[1][1][2] = upFaceCell01;
-      cube[1][2][2] = upFaceCell02;
+    //Down Face
+    cube[5][2][0] = leftFaceCell00;
+    cube[5][2][1] = leftFaceCell10;
+    cube[5][2][2] = leftFaceCell20;
+  } else {
+    //Right Face
+    cube[1][0][2] = upFaceCell00;
+    cube[1][1][2] = upFaceCell01;
+    cube[1][2][2] = upFaceCell02;
 
-      //Up Face
-      cube[2][0][2] = leftFaceCell00;
-      cube[2][0][1] = leftFaceCell10;
-      cube[2][0][0] = leftFaceCell20;
+    //Up Face
+    cube[2][0][2] = leftFaceCell00;
+    cube[2][0][1] = leftFaceCell10;
+    cube[2][0][0] = leftFaceCell20;
 
-      //Left Face
-      cube[4][0][0] = downFaceCell20;
-      cube[4][1][0] = downFaceCell21;
-      cube[4][2][0] = downFaceCell22;
+    //Left Face
+    cube[4][0][0] = downFaceCell20;
+    cube[4][1][0] = downFaceCell21;
+    cube[4][2][0] = downFaceCell22;
 
-      //Down Face
-      cube[5][2][2] = rightFaceCell02;
-      cube[5][2][1] = rightFaceCell12;
-      cube[5][2][0] = rightFaceCell22;
-      break;
+    //Down Face
+    cube[5][2][2] = rightFaceCell02;
+    cube[5][2][1] = rightFaceCell12;
+    cube[5][2][0] = rightFaceCell22;
   }
   return cube;
 };
@@ -341,50 +326,47 @@ const rotateLeftFace = (cube, direction) => {
   const downFaceCell20 = cube[5][2][0];
 
   cube = rotateCurrentFace(4, cube, direction);
-  switch (direction) {
-    case Clockwise:
-      //Front Face
-      cube[0][0][0] = upFaceCell00;
-      cube[0][1][0] = upFaceCell10;
-      cube[0][2][0] = upFaceCell20;
 
-      //Up Face
-      cube[2][2][0] = backFaceCell02;
-      cube[2][1][0] = backFaceCell12;
-      cube[2][0][0] = backFaceCell22;
+  if (direction === Clockwise) {
+    //Front Face
+    cube[0][0][0] = upFaceCell00;
+    cube[0][1][0] = upFaceCell10;
+    cube[0][2][0] = upFaceCell20;
 
-      //Back Face
-      cube[3][2][2] = downFaceCell00;
-      cube[3][1][2] = downFaceCell10;
-      cube[3][0][2] = downFaceCell20;
+    //Up Face
+    cube[2][2][0] = backFaceCell02;
+    cube[2][1][0] = backFaceCell12;
+    cube[2][0][0] = backFaceCell22;
 
-      //Down Face
-      cube[5][0][0] = frontFaceCell00;
-      cube[5][1][0] = frontFaceCell10;
-      cube[5][2][0] = frontFaceCell20;
+    //Back Face
+    cube[3][2][2] = downFaceCell00;
+    cube[3][1][2] = downFaceCell10;
+    cube[3][0][2] = downFaceCell20;
 
-      break;
-    case CounterClockwise:
-      //Front Face
-      cube[0][0][0] = downFaceCell00;
-      cube[0][1][0] = downFaceCell10;
-      cube[0][2][0] = downFaceCell20;
+    //Down Face
+    cube[5][0][0] = frontFaceCell00;
+    cube[5][1][0] = frontFaceCell10;
+    cube[5][2][0] = frontFaceCell20;
+  } else {
+    //Front Face
+    cube[0][0][0] = downFaceCell00;
+    cube[0][1][0] = downFaceCell10;
+    cube[0][2][0] = downFaceCell20;
 
-      //Up Face
-      cube[2][0][0] = frontFaceCell00;
-      cube[2][1][0] = frontFaceCell10;
-      cube[2][2][0] = frontFaceCell20;
+    //Up Face
+    cube[2][0][0] = frontFaceCell00;
+    cube[2][1][0] = frontFaceCell10;
+    cube[2][2][0] = frontFaceCell20;
 
-      //Back Face
-      cube[3][2][2] = upFaceCell00;
-      cube[3][1][2] = upFaceCell10;
-      cube[3][0][2] = upFaceCell20;
+    //Back Face
+    cube[3][2][2] = upFaceCell00;
+    cube[3][1][2] = upFaceCell10;
+    cube[3][0][2] = upFaceCell20;
 
-      //Down Face
-      cube[5][2][0] = backFaceCell02;
-      cube[5][1][0] = backFaceCell12;
-      cube[5][0][0] = backFaceCell22;
-      break;
+    //Down Face
+    cube[5][2][0] = backFaceCell02;
+    cube[5][1][0] = backFaceCell12;
+    cube[5][0][0] = backFaceCell22;
   }
   return cube;
 };
@@ -412,54 +394,50 @@ const rotateDownFace = (cube, direction) => {
   const rightFaceCell22 = cube[1][2][2];
 
   cube = rotateCurrentFace(5, cube, direction);
-  switch (direction) {
-    case Clockwise:
-      //Front Face
-      cube[0][2][0] = leftFaceCell20;
-      cube[0][2][1] = leftFaceCell21;
-      cube[0][2][2] = leftFaceCell22;
 
-      //Left Face
-      cube[4][2][0] = backFaceCell20;
-      cube[4][2][1] = backFaceCell21;
-      cube[4][2][2] = backFaceCell22;
+  if (direction === Clockwise) {
+    //Front Face
+    cube[0][2][0] = leftFaceCell20;
+    cube[0][2][1] = leftFaceCell21;
+    cube[0][2][2] = leftFaceCell22;
 
-      //Back Face
-      cube[3][2][0] = rightFaceCell20;
-      cube[3][2][1] = rightFaceCell21;
-      cube[3][2][2] = rightFaceCell22;
+    //Left Face
+    cube[4][2][0] = backFaceCell20;
+    cube[4][2][1] = backFaceCell21;
+    cube[4][2][2] = backFaceCell22;
 
-      //Right Face
-      cube[1][2][0] = frontFaceCell20;
-      cube[1][2][1] = frontFaceCell21;
-      cube[1][2][2] = frontFaceCell22;
+    //Back Face
+    cube[3][2][0] = rightFaceCell20;
+    cube[3][2][1] = rightFaceCell21;
+    cube[3][2][2] = rightFaceCell22;
 
-      break;
-    case CounterClockwise:
-      //Front Face
-      cube[0][2][0] = rightFaceCell20;
-      cube[0][2][1] = rightFaceCell21;
-      cube[0][2][2] = rightFaceCell22;
+    //Right Face
+    cube[1][2][0] = frontFaceCell20;
+    cube[1][2][1] = frontFaceCell21;
+    cube[1][2][2] = frontFaceCell22;
+  } else {
+    //Front Face
+    cube[0][2][0] = rightFaceCell20;
+    cube[0][2][1] = rightFaceCell21;
+    cube[0][2][2] = rightFaceCell22;
 
-      //Left Face
-      cube[4][2][0] = frontFaceCell20;
-      cube[4][2][1] = frontFaceCell21;
-      cube[4][2][2] = frontFaceCell22;
+    //Left Face
+    cube[4][2][0] = frontFaceCell20;
+    cube[4][2][1] = frontFaceCell21;
+    cube[4][2][2] = frontFaceCell22;
 
-      //Back Face
-      cube[3][2][0] = leftFaceCell20;
-      cube[3][2][1] = leftFaceCell21;
-      cube[3][2][2] = leftFaceCell22;
+    //Back Face
+    cube[3][2][0] = leftFaceCell20;
+    cube[3][2][1] = leftFaceCell21;
+    cube[3][2][2] = leftFaceCell22;
 
-      //Right Face
-      cube[1][2][0] = backFaceCell20;
-      cube[1][2][1] = backFaceCell21;
-      cube[1][2][2] = backFaceCell22;
-      break;
+    //Right Face
+    cube[1][2][0] = backFaceCell20;
+    cube[1][2][1] = backFaceCell21;
+    cube[1][2][2] = backFaceCell22;
   }
   return cube;
 };
-
 
 /**
  * Rotates the inputted face.
@@ -470,10 +448,6 @@ const rotateDownFace = (cube, direction) => {
  */
 export const rotateFace = (cube, face, direction) => {
   switch (face) {
-    //Front
-    case Faces[0]:
-      cube = rotateFrontFace(cube, direction);
-      break;
     //Right
     case Faces[1]:
       cube = rotateRightFace(cube, direction);
@@ -493,6 +467,11 @@ export const rotateFace = (cube, face, direction) => {
     //Down
     case Faces[5]:
       cube = rotateDownFace(cube, direction);
+      break;
+    //Front
+    case Faces[0]:
+    default:
+      cube = rotateFrontFace(cube, direction);
       break;
   }
   return cube;
