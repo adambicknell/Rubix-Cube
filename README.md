@@ -3,6 +3,19 @@
 ## Prerequisites
 
 - Node [https://nodejs.org/en/download/](https://nodejs.org/en/download/)
+
+## Run Rubix Cube Simulator
+
+- From the project root, run `npm install`.
+- When this completes, run `npm run start`.
+- To view the Rubix Cube Simulator, navigate to [http://localhost:3000](http://localhost:3000) in a browser.
+
+## What to expect
+
+- The rotation sequence will run automatically.
+- The cube can be reset to default.
+- Tools are available to test all possible face rotations.
+
 ## Available Scripts
 
 In the project directory, you can run:
