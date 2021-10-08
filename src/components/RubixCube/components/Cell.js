@@ -1,4 +1,5 @@
 const Cell = (props) => {
+  //Render Rubix Cube cell
   return (
     <div
     className="face-cell"

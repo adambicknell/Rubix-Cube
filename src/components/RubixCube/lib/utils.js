@@ -1,12 +1,23 @@
 import Cell from "../components/Cell";
-export const generateCubeFace = (face, colour) => {
+
+/**
+ * Generates the initial Rubix cube data structure
+ * @param {String} colour 
+ * @returns 
+ */
+export const generateCubeFace = (colour) => {
   return [
-    Array(3).fill({ face: face, colour: colour }),
-    Array(3).fill({ face: face, colour: colour }),
-    Array(3).fill({ face: face, colour: colour }),
+    Array(3).fill({ colour: colour }),
+    Array(3).fill({ colour: colour }),
+    Array(3).fill({ colour: colour }),
   ];
 };
 
+/**
+ * Renders the faces in the required order.
+ * @param {Array} cube
+ * @returns
+ */
 export const renderFaces = (cube) => {
   const topRow = [];
   const midRow = [];
@@ -56,45 +67,50 @@ export const renderFaces = (cube) => {
   return <div className="faces">{faces}</div>;
 };
 
+/**
+ * Sets the faces of the rubix cube
+ * @param Array face
+ * @returns
+ */
 export const setFace = (face) => {
   const row1 = [];
   const row2 = [];
   const row3 = [];
   const rows = [];
-  const r1 = face[0];
-  const r2 = face[1];
-  const r3 = face[2];
   let cells = [];
-  for (let i = 0; i < 3; i++) {
-    let cell = r1[i];
-    cells.push(
-      <td>
-        <Cell colour={cell.colour} />
-      </td>
-    );
-  }
-  row1.push(<tr>{cells}</tr>);
-  cells = [];
-  for (let i = 0; i < 3; i++) {
-    let cell = r2[i];
-    cells.push(
-      <td>
-        <Cell colour={cell.colour} />
-      </td>
-    );
-  }
-  row2.push(<tr>{cells}</tr>);
 
-  cells = [];
+  //Sets row 1 of the face
   for (let i = 0; i < 3; i++) {
-    let cell = r3[i];
     cells.push(
       <td>
-        <Cell colour={cell.colour} />
+        <Cell colour={face[0][i].colour} />
       </td>
     );
   }
-  row3.push(<tr>{cells}</tr>);
+  row1.push(<tr>{cells}</tr>); //Separate loops for ease of displaying in rows
+
+  cells = []; //Clear cells
+  //Sets row 2 of the face
+  for (let i = 0; i < 3; i++) {
+    cells.push(
+      <td>
+        <Cell colour={face[1][i].colour} />
+      </td>
+    );
+  }
+  row2.push(<tr>{cells}</tr>); //Separate loops for ease of displaying in rows
+
+  cells = []; //Clear cells
+  //Sets row 3 of the face
+  for (let i = 0; i < 3; i++) {
+    cells.push(
+      <td>
+        <Cell colour={face[2][i].colour} />
+      </td>
+    );
+  }
+  row3.push(<tr>{cells}</tr>); //Separate loops for ease of displaying in rows
+
   rows.push(row1, row2, row3);
   const cubeFace = (
     <table style={{ borderCollapse: "collapse", borderSpacing: 0 }}>

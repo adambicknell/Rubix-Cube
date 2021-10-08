@@ -1,4 +1,17 @@
-.rubix {
+html,
+body {
+  height: 100vh;
+  width: 100vh;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+h1 {
+  font-family: Arial;
+  text-align: center;
+}
+
+#rubix-cube {
   text-align: center;
 }
 
@@ -44,4 +57,11 @@ td {
   width: 50px;
   height: 50px;
   border: 1px solid #000;
+}
+
+.rotate-button {
+  width: 50px;
+  height: 50px;
+  margin: 0 25px 5px 25px;
+  cursor: pointer;
 }

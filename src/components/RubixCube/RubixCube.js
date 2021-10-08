@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Faces } from "./lib/consts";
+import { Colours } from "./lib/consts";
 import Tools from "./components/Tools";
 import { renderFaces, generateCubeFace } from "./lib/utils";
 
@@ -8,22 +8,24 @@ const RubixCube = () => {
   const [faces, setFaces] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(async () => {
+  //Generate Rubix Cube and set UI on initial load
+  useEffect(() => {
     if (isLoading) {
       setIsLoading(false);
       setCube([
-        generateCubeFace(Faces[0], "green"),
-        generateCubeFace(Faces[1], "red"),
-        generateCubeFace(Faces[2], "white"),
-        generateCubeFace(Faces[3], "blue"),
-        generateCubeFace(Faces[4], "orange"),
-        generateCubeFace(Faces[5], "yellow"),
+        generateCubeFace(Colours[0]),
+        generateCubeFace(Colours[1]),
+        generateCubeFace(Colours[2]),
+        generateCubeFace(Colours[3]),
+        generateCubeFace(Colours[4]),
+        generateCubeFace(Colours[5]),
       ]);
       return null;
     }
   }, [isLoading]);
 
-  useEffect(async () => {
+  //Update Rubix Cube faces when cube state changed
+  useEffect(() => {
     console.log(cube);
     if (cube.length) {
       setFaces(renderFaces(cube));
@@ -31,20 +33,25 @@ const RubixCube = () => {
     }
   }, [cube]);
 
+  //Function used by child component <Tools> to update cube state
   function updateCube(cube) {
     setCube(cube);
     setFaces(renderFaces(cube));
   }
 
+  //Render Rubix Cube
   return (
-    <div>
+    <>
       {cube?.[0] ? (
-        <div>
-          {faces}
-          <Tools cube={cube} faces={faces} onChange={updateCube} />
-        </div>
+        <>
+          <h1>Rubix Cube Simulator</h1>
+          <div id="rubix-cube">
+            {faces}
+            <Tools cube={cube} onChange={updateCube} />
+          </div>
+        </>
       ) : null}
-    </div>
+    </>
   );
 };
 
