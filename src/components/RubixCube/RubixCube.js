@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Faces } from "./lib/consts";
-import { generateCubeFace } from "./lib/utils";
+import Tools from "./components/Tools";
+import { renderFaces, generateCubeFace } from "./lib/utils";
 
 const RubixCube = () => {
   const [cube, setCube] = useState([]);
+  const [faces, setFaces] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(async () => {
@@ -21,11 +23,27 @@ const RubixCube = () => {
     }
   }, [isLoading]);
 
- 
+  useEffect(async () => {
+    console.log(cube);
+    if (cube.length) {
+      setFaces(renderFaces(cube));
+      return null;
+    }
+  }, [cube]);
+
+  function updateCube(cube) {
+    setCube(cube);
+    setFaces(renderFaces(cube));
+  }
 
   return (
     <div>
-     
+      {cube?.[0] ? (
+        <div>
+          {faces}
+          <Tools cube={cube} faces={faces} onChange={updateCube} />
+        </div>
+      ) : null}
     </div>
   );
 };
