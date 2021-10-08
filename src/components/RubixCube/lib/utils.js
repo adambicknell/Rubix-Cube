@@ -152,3 +152,7 @@ export const setFace = (face) => {
 export const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
+
+export const isOdd = (num) => {
+  return num % 2;
+};

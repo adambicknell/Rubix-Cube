@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Tools from "./components/Tools";
-import { sleep, renderFaces, generateCube } from "./lib/utils";
-import { Faces, Clockwise, CounterClockwise } from "./lib/consts";
+import { sleep, renderFaces, generateCube, isOdd } from "./lib/utils";
+import {
+  Faces,
+  Clockwise,
+  CounterClockwise,
+  RotationTitles,
+} from "./lib/consts";
 import { rotateFace } from "./lib/rotation";
 
 const RubixCube = () => {
   const [cube, setCube] = useState([]);
   const [faces, setFaces] = useState([]);
+  const [rotationTitle, setRotationTitle] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [hasRanAnimation, setHasRanAnimation] = useState(false);
 
@@ -28,17 +34,17 @@ const RubixCube = () => {
     if (!isLoading && !hasRanAnimation) {
       setHasRanAnimation(true);
       await sleep(1000);
-      animateButtonClicks(Faces[0], Clockwise);
-      await sleep(2000);
-      animateButtonClicks(Faces[1], CounterClockwise);
-      await sleep(2000);
-      animateButtonClicks(Faces[2], Clockwise);
-      await sleep(2000);
-      animateButtonClicks(Faces[3], CounterClockwise);
-      await sleep(2000);
-      animateButtonClicks(Faces[4], Clockwise);
-      await sleep(2000);
-      animateButtonClicks(Faces[5], CounterClockwise);
+      let counter = 0;
+      for await (const face of Faces) {
+        let direction = !isOdd(counter) ? Clockwise : CounterClockwise;
+        animateButtonClicks(face, direction);
+        setRotationTitle(RotationTitles[counter]);
+        await sleep(2000);
+        if (counter === 5) {
+          setRotationTitle("");
+        }
+        counter++;
+      }
       return null;
     }
   }, [isLoading]);
@@ -63,6 +69,9 @@ const RubixCube = () => {
       {cube?.[0] ? (
         <>
           <h1>Rubix Cube Simulator</h1>
+          {rotationTitle != "" ? (
+            <div id="rotation-title">{rotationTitle}</div>
+          ) : null}
           <div id="rubix-cube">
             {faces}
             <Tools cube={cube} onChange={updateCube} />

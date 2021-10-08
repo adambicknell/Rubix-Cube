@@ -4,11 +4,24 @@ body {
   width: 100vh;
   margin: 0 auto;
   overflow: hidden;
+  background-color: rgb(220, 221, 211);
 }
 
 h1 {
   font-family: Arial;
   text-align: center;
+  color:#333;
+}
+
+#rotation-title {
+  position: absolute;
+  top: 33px;
+  right: 15px;
+  font-family: Arial;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-style: italic;
+  color:#333;
 }
 
 #rubix-cube {
@@ -59,7 +72,8 @@ td {
   border: 1px solid #000;
 }
 
-.rotate-button, .reset-cube {
+.rotate-button,
+.reset-cube {
   width: 50px;
   height: 50px;
   margin: 0 25px 5px 25px;
@@ -70,4 +84,3 @@ td {
   width: 150px;
   margin-top: 10px;
 }
-

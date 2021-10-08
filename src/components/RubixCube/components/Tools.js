@@ -48,7 +48,9 @@ const Tools = (props) => {
           const cube = generateCube();
           props.onChange(cube);
         }}
-      >Reset Cube</button>
+      >
+        Reset Cube
+      </button>
     </div>
   );
 };
