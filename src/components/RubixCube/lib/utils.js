@@ -1,15 +1,32 @@
 import Cell from "../components/Cell";
+import { Colours } from "../lib/consts";
 
 /**
  * Generates the initial Rubix cube data structure
  * @param {String} colour
  * @returns
  */
-export const generateCubeFace = (colour) => {
+const generateCubeFace = (colour) => {
   return [
     Array(3).fill({ colour: colour }),
     Array(3).fill({ colour: colour }),
     Array(3).fill({ colour: colour }),
+  ];
+};
+
+/**
+ * Generates the initial Rubix cube data structure
+ * @param {String} colour
+ * @returns
+ */
+export const generateCube = () => {
+  return [
+    generateCubeFace(Colours[0]),
+    generateCubeFace(Colours[1]),
+    generateCubeFace(Colours[2]),
+    generateCubeFace(Colours[3]),
+    generateCubeFace(Colours[4]),
+    generateCubeFace(Colours[5]),
   ];
 };
 
@@ -130,4 +147,8 @@ export const setFace = (face) => {
     </table>
   );
   return cubeFace;
+};
+
+export const sleep = (ms) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 };

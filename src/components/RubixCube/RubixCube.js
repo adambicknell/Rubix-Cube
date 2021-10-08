@@ -1,25 +1,44 @@
 import React, { useEffect, useState } from "react";
-import { Colours } from "./lib/consts";
 import Tools from "./components/Tools";
-import { renderFaces, generateCubeFace } from "./lib/utils";
+import { sleep, renderFaces, generateCube } from "./lib/utils";
+import { Faces, Clockwise, CounterClockwise } from "./lib/consts";
+import { rotateFace } from "./lib/rotation";
 
 const RubixCube = () => {
   const [cube, setCube] = useState([]);
   const [faces, setFaces] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasRanAnimation, setHasRanAnimation] = useState(false);
+
+  function animateButtonClicks(face, direction) {
+    const newCube = rotateFace(cube, face, direction);
+    updateCube(newCube);
+  }
 
   //Generate Rubix Cube and set UI on initial load
   useEffect(() => {
     if (isLoading) {
       setIsLoading(false);
-      setCube([
-        generateCubeFace(Colours[0]),
-        generateCubeFace(Colours[1]),
-        generateCubeFace(Colours[2]),
-        generateCubeFace(Colours[3]),
-        generateCubeFace(Colours[4]),
-        generateCubeFace(Colours[5]),
-      ]);
+      setCube(generateCube());
+      return null;
+    }
+  }, [isLoading]);
+
+  useEffect(async () => {
+    if (!isLoading && !hasRanAnimation) {
+      setHasRanAnimation(true);
+      await sleep(1000);
+      animateButtonClicks(Faces[0], Clockwise);
+      await sleep(2000);
+      animateButtonClicks(Faces[1], CounterClockwise);
+      await sleep(2000);
+      animateButtonClicks(Faces[2], Clockwise);
+      await sleep(2000);
+      animateButtonClicks(Faces[3], CounterClockwise);
+      await sleep(2000);
+      animateButtonClicks(Faces[4], Clockwise);
+      await sleep(2000);
+      animateButtonClicks(Faces[5], CounterClockwise);
       return null;
     }
   }, [isLoading]);

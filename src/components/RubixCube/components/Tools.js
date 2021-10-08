@@ -1,5 +1,6 @@
 import { Faces, Clockwise, CounterClockwise } from "../lib/consts";
 import { rotateFace } from "../lib/rotation";
+import { generateCube } from "../lib/utils";
 const Tools = (props) => {
   const clockwiseActions = [];
   const counterClockwiseActions = [];
@@ -39,6 +40,15 @@ const Tools = (props) => {
       {clockwiseActions}
       <br />
       {counterClockwiseActions}
+      <br />
+      <button
+        key={14}
+        className="reset-cube"
+        onClick={() => {
+          const cube = generateCube();
+          props.onChange(cube);
+        }}
+      >Reset Cube</button>
     </div>
   );
 };
